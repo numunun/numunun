@@ -1,0 +1,39 @@
+name: Update profile art
+
+"on":
+  schedule:
+    - cron: "17 15 * * *"   # 매일 00:17 KST
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  profile-art:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Download GitHub profile photo
+        run: curl --fail --location --retry 3 --output profile-photo.png "https://github.com/numunun.png?size=460"
+      - name: Prepare profile photo
+        run: python scripts/prep_photo.py
+      - name: Generate ASCII portrait
+        run: python scripts/make_logo_svg.py
+      - name: Remove temporary profile photos
+        run: rm -f profile-photo.png processed-photo.png
+      - name: Generate contribution heatmap
+        run: python scripts/generate_streak_svg.py numunun contrib-heatmap.svg
+      - name: Generate profile info card
+        run: python scripts/make_info_card.py
+      - name: Commit updated profile art
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh profile art [skip ci]"
+          file_pattern: "README.md contrib-heatmap.svg numunun-ascii.svg info-card.svg"
