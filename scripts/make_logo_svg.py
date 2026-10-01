@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""아바타 대신 이름 로고(figlet)를 터미널 카드로 그린다.
-
-프로필 사진이 ASCII로 잘 안 나올 때 워크플로의 'Generate ASCII portrait' 단계를
-`python scripts/make_logo_svg.py`로 바꿔 쓰면 된다.
-"""
 import html
 from pathlib import Path
 
@@ -36,8 +31,6 @@ for i, c in enumerate(["#ff5f56", "#ffbd2e", "#27c93f"]):
     parts.append(f'<circle cx="{20+i*16}" cy="15" r="5" fill="{c}"/>')
 parts.append(f'<text x="{W//2}" y="19" fill="#7d8590" font-size="12" text-anchor="middle">numunun@github: ~$ figlet numunun</text>')
 
-# 글꼴에 따라 박스 문자가 깨지지 않도록 로고는 글자 대신 사각형으로 그린다.
-# █ 는 밝은 칸, 나머지 선 문자(╗ ║ ╚ ...)는 어두운 그림자 칸.
 CW = (W - 36) / len(LOGO[0])
 CH = CW * 2
 top = 95

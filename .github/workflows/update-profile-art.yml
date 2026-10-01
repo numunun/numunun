@@ -2,7 +2,7 @@ name: Update profile art
 
 "on":
   schedule:
-    - cron: "17 15 * * *"   # 매일 00:17 KST
+    - cron: "17 */3 * * *"   # 3시간마다
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -20,20 +20,29 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
+
       - name: Download GitHub profile photo
         run: curl --fail --location --retry 3 --output profile-photo.png "https://github.com/numunun.png?size=460"
       - name: Prepare profile photo
         run: python scripts/prep_photo.py
       - name: Generate ASCII portrait
-        run: python scripts/make_logo_svg.py
+        run: python scripts/make_ascii_svg.py
       - name: Remove temporary profile photos
         run: rm -f profile-photo.png processed-photo.png
-      - name: Generate contribution heatmap
-        run: python scripts/generate_streak_svg.py numunun contrib-heatmap.svg
-      - name: Generate profile info card
-        run: python scripts/make_info_card.py
+
+      - name: Fetch contributions and languages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_data.py
+      - name: Generate cards
+        run: |
+          python scripts/make_banner.py
+          python scripts/generate_streak_svg.py
+          python scripts/make_info_card.py
+          python scripts/make_stats.py
+
       - name: Commit updated profile art
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: refresh profile art [skip ci]"
-          file_pattern: "README.md contrib-heatmap.svg numunun-ascii.svg info-card.svg"
+          file_pattern: "README.md data/profile.json banner.svg contrib-heatmap.svg numunun-ascii.svg info-card.svg stats.svg"

@@ -1,8 +1,12 @@
 <div align="center">
 
+<img src="./banner.svg" width="860" alt="numunun" />
+
+<br><br>
+
 <h3><code>numunun@github ~ $ ./contributions.sh</code></h3>
 
-<img src="./contrib-heatmap.svg" width="860" alt="numunun GitHub contribution graph — auto-refreshed daily" />
+<img src="./contrib-heatmap.svg" width="860" alt="numunun contribution graph — auto-refreshed" />
 
 <br><br>
 
@@ -25,7 +29,7 @@
 
 <h3><code>numunun@github ~ $ ./status.sh</code></h3>
 
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=numunun&theme=tokyonight&date_format=%5BY.%5Dm.%5Dd" alt="GitHub streak stats" />
+<img src="./stats.svg" width="860" alt="numunun streaks and languages (KST)" />
 
 <br><br>
 
@@ -34,6 +38,9 @@
 <p><b>Student Developer</b></p>
 
 [![GitHub](https://img.shields.io/badge/GitHub-numunun-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/numunun)
-![Profile Views](https://komarev.com/ghpvc/?username=numunun&color=blue&style=flat-square&label=PROFILE+VIEWS)<br>
+[![NoTab](https://img.shields.io/badge/NoTab-Paper_plugin-A97BFF?style=for-the-badge&logo=kotlin&logoColor=white)](https://github.com/numunun/NoTab)
+[![SideButtons](https://img.shields.io/badge/SideButtons-macOS-F05138?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/numunun/SideButtons)
+<br>
+![Profile Views](https://komarev.com/ghpvc/?username=numunun&color=39d353&style=for-the-badge&label=PROFILE+VIEWS)
 
 </div>

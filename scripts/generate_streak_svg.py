@@ -1,59 +1,79 @@
 #!/usr/bin/env python3
-"""GitHub 잔디(기여 그래프)를 애니메이션 SVG로 그린다.
 
-사용법: python scripts/generate_streak_svg.py numunun contrib-heatmap.svg
-"""
-import datetime, json, sys, urllib.request
+import datetime, json, sys
+from pathlib import Path
 
-USER = sys.argv[1] if len(sys.argv) > 1 else "numunun"
-OUT = sys.argv[2] if len(sys.argv) > 2 else "contrib-heatmap.svg"
+sys.path.insert(0, str(Path(__file__).parent))
+from theme import *
 
-CELL, GAP, RAD, LEFT, TOP = 13, 3, 2.5, 34, 24
-COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+ROOT = Path(__file__).resolve().parent.parent
+data = json.loads((ROOT / "data" / "profile.json").read_text(encoding="utf-8"))
+days = data["days"]
+
+MAX_WEEKS = 53
+
 MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+CELL, GAP, LEFT, TOP = 12, 3, 56, 84
+last = datetime.date.fromisoformat(days[-1]["date"])
+first = last - datetime.timedelta(days=(last.weekday() + 1) % 7 + (MAX_WEEKS - 1) * 7)
+days = [d for d in days if datetime.date.fromisoformat(d["date"]) >= first]
+start = datetime.date.fromisoformat(days[0]["date"])
+offset = (start.weekday() + 1) % 7
+weeks = (offset + len(days) + 6) // 7
+W = 860
+H = TOP + 7 * (CELL + GAP) + 42
 
+p = window(W, H, f"{USER}@github: ~$ git log --graph --since='1 year ago'")
+p.append(f'<style>'
+         f'.c{{transform-box:fill-box;transform-origin:center;opacity:0;animation:pop .5s ease-out both}}'
+         f'.g{{animation:pop .5s ease-out both,glow .9s ease-out both}}'
+         f'@keyframes pop{{0%{{opacity:0;transform:scale(.1)}}60%{{opacity:1;transform:scale(1.15)}}100%{{opacity:1;transform:scale(1)}}}}'
+         f'@keyframes glow{{0%,40%{{filter:brightness(2.6)}}100%{{filter:brightness(1)}}}}'
+         f'@media (prefers-reduced-motion:reduce){{.c{{opacity:1!important;animation:none!important}}}}'
+         f'</style>')
 
-def fetch(user):
-    url = f"https://github-contributions-api.jogruber.de/v4/{user}?y=last"
-    with urllib.request.urlopen(url, timeout=25) as response:
-        data = json.loads(response.read().decode())
-    return data["contributions"], data["total"]["lastYear"]
+# 위쪽 요약 줄
+p.append(f'<text x="22" y="52" font-size="13" fill="{MUTED}"><tspan fill="{GREEN}" font-weight="700">{data["total"]:,}</tspan>'
+         f' contributions · <tspan fill="{CYAN}" font-weight="700">{data["active_days"]}</tspan> active days in the last year</text>')
 
+last_month = None
+for w in range(weeks):
+    d = start + datetime.timedelta(days=w * 7 - offset)
+    if d.month != last_month:
+        if last_month is None and d.day > 8:   # 첫 달이 잘려 있으면 라벨 생략
+            last_month = d.month
+            continue
+        last_month = d.month
+        p.append(f'<text x="{LEFT + w*(CELL+GAP)}" y="{TOP-8}" fill="{MUTED}" font-size="11">{MONTHS[d.month-1]}</text>')
+for name, row in [("Mon", 1), ("Wed", 3), ("Fri", 5)]:
+    p.append(f'<text x="22" y="{TOP + row*(CELL+GAP) + CELL - 2}" fill="{MUTED}" font-size="11">{name}</text>')
 
-def render(contribs, total):
-    weeks = (len(contribs) + 6) // 7
-    width = LEFT + weeks * (CELL + GAP) + 6
-    height = TOP + 7 * (CELL + GAP) + 22
-    max_order = (weeks - 1) + 6 * 0.55
-    labels, rects = [], []
-    start = datetime.date.fromisoformat(contribs[0]["date"])
-    last_month = None
-    for week in range(weeks):
-        date = start + datetime.timedelta(days=week * 7)
-        if date.month != last_month:
-            last_month = date.month
-            labels.append(f'<text class="lbl" x="{LEFT + week*(CELL+GAP)}" y="{TOP-8}">{MONTHS[date.month-1]}</text>')
-    for name, row in [("Mon", 1), ("Wed", 3), ("Fri", 5)]:
-        labels.append(f'<text class="lbl" x="2" y="{TOP + row*(CELL+GAP) + CELL - 2}">{name}</text>')
-    for index, item in enumerate(contribs):
-        week, row, level = index // 7, index % 7, item["level"]
-        x, y = LEFT + week*(CELL+GAP), TOP + row*(CELL+GAP)
-        delay = round((week + row*0.55) / max_order * 3.6, 3)
-        klass = "c g" if level >= 1 else "c e"
-        rects.append(f'<rect class="{klass}" x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="{RAD}" fill="{COLORS[level]}" style="animation-delay:{delay}s"/>')
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
-<style>
-.lbl{{fill:#7d8590;font-size:13px;font-weight:600}} .total{{fill:#e6edf3;font-size:15px;font-weight:700}}
-.c{{transform-box:fill-box;transform-origin:center;opacity:0;animation:pop .55s ease-out both}}
-.g{{animation:pop .55s ease-out both,flash .7s ease-out both}}
-@keyframes pop{{0%{{opacity:0;transform:scale(.2)}}60%{{opacity:1;transform:scale(1.1)}}100%{{opacity:1;transform:scale(1)}}}}
-@keyframes flash{{0%,45%{{filter:brightness(2.4)}}100%{{filter:brightness(1)}}}}
-@media (prefers-reduced-motion:reduce){{.c{{opacity:1!important;animation:none!important}}}}
-</style><rect width="{width}" height="{height}" fill="none"/>{''.join(labels)}{''.join(rects)}<text class="total" x="{LEFT}" y="{height-6}">{total:,} contributions in the last year</text></svg>'''
+max_order = weeks + 6 * .55
+for i, d in enumerate(days):
+    k = i + offset
+    w, r = k // 7, k % 7
+    x, y = LEFT + w * (CELL + GAP), TOP + r * (CELL + GAP)
+    delay = round((w + r * .55) / max_order * 2.8, 3)
+    cls = "c g" if d["level"] else "c"
+    tip = f'{d["count"]} on {d["date"]}'
+    p.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" fill="{HEAT[d["level"]]}" style="animation-delay:{delay}s"><title>{tip}</title></rect>')
 
+# 오늘 칸 표시 (깜빡이는 테두리)
+k = len(days) - 1 + offset
+tx, ty = LEFT + (k // 7) * (CELL + GAP), TOP + (k % 7) * (CELL + GAP)
+p.append(f'<rect x="{tx-1.5}" y="{ty-1.5}" width="{CELL+3}" height="{CELL+3}" rx="3.5" fill="none" stroke="{CYAN}" stroke-width="1.2">'
+         f'<animate attributeName="opacity" values="1;.15;1" dur="1.6s" repeatCount="indefinite"/></rect>')
 
-if __name__ == "__main__":
-    contribs, total = fetch(USER)
-    with open(OUT, "w", encoding="utf-8") as f:
-        f.write(render(contribs, total))
-    print(f"Wrote {OUT}")
+# 아래 범례
+ly = H - 20
+p.append(f'<text x="22" y="{ly}" fill="{MUTED}" font-size="11">best day · <tspan fill="{ORANGE}">{data["best_day"]["count"]}</tspan> on {data["best_day"]["date"].replace("-", ".")}</text>')
+lx = W - 22 - 5 * 15 - 70
+p.append(f'<text x="{lx}" y="{ly}" fill="{MUTED}" font-size="11">Less</text>')
+for i, c in enumerate(HEAT):
+    p.append(f'<rect x="{lx + 34 + i*15}" y="{ly-10}" width="12" height="12" rx="2.5" fill="{c}"/>')
+p.append(f'<text x="{lx + 34 + 5*15 + 4}" y="{ly}" fill="{MUTED}" font-size="11">More</text>')
+p.append('</svg>')
+
+out = sys.argv[2] if len(sys.argv) > 2 else str(ROOT / "contrib-heatmap.svg")
+Path(out).write_text("".join(p), encoding="utf-8")
+print(f"Wrote {out}")

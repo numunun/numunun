@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Render a processed profile photo as a static ASCII art SVG."""
 
 from __future__ import annotations
 
@@ -31,7 +30,7 @@ def photo_to_ascii(source_path: Path) -> list[str]:
         aspect_ratio = image.height / image.width
         rows = max(1, round(ASCII_COLUMNS * aspect_ratio * CHARACTER_ASPECT_RATIO))
         image = image.resize((ASCII_COLUMNS, rows), Image.Resampling.LANCZOS)
-        pixels = list(image.getdata())
+        pixels = list(image.get_flattened_data()) if hasattr(image, "get_flattened_data") else list(image.getdata())
 
     return [
         "".join(
@@ -50,24 +49,34 @@ def render_svg(lines: list[str]) -> str:
         f'viewBox="0 0 {SVG_WIDTH} {SVG_HEIGHT}" role="img" aria-labelledby="title desc">',
         '<title id="title">numunun ASCII portrait</title>',
         '<desc id="desc">GitHub profile photo rendered as character-based ASCII art</desc>',
-        '<rect width="370" height="376" rx="12" fill="#0d1117"/>',
-        '<rect x=".5" y=".5" width="369" height="375" rx="12" fill="none" stroke="#30363d"/>',
-        '<line x1="0" y1="30" x2="370" y2="30" stroke="#30363d"/>',
+        '<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#111722"/><stop offset="1" stop-color="#0d1117"/></linearGradient>'
+        '<linearGradient id="ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".6" stop-color="#39d353"/><stop offset="1" stop-color="#26a641"/></linearGradient>'
+        '<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity="0"/><stop offset="1" stop-color="#22d3ee" stop-opacity=".22"/></linearGradient>'
+        f'<clipPath id="win"><rect x="1" y="31" width="{SVG_WIDTH-2}" height="{SVG_HEIGHT-32}" rx="11"/></clipPath></defs>',
+        f'<rect width="{SVG_WIDTH}" height="{SVG_HEIGHT}" rx="12" fill="url(#bg)"/>',
+        f'<rect x=".5" y=".5" width="{SVG_WIDTH-1}" height="{SVG_HEIGHT-1}" rx="12" fill="none" stroke="#30363d"/>',
+        f'<line x1="0" y1="30" x2="{SVG_WIDTH}" y2="30" stroke="#30363d"/>',
         '<circle cx="20" cy="15" r="5" fill="#ff5f56"/>',
         '<circle cx="36" cy="15" r="5" fill="#ffbd2e"/>',
         '<circle cx="52" cy="15" r="5" fill="#27c93f"/>',
-        '<text x="185" y="19" fill="#7d8590" font-size="12" text-anchor="middle" '
+        f'<text x="{SVG_WIDTH/2}" y="19" fill="#7d8590" font-size="12" text-anchor="middle" '
         'font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">'
         'numunun@github: ~$ avatar --ascii</text>',
-        f'<g fill="#39d353" font-size="{FONT_SIZE}" font-weight="700" '
+        f'<g fill="url(#ink)" font-size="{FONT_SIZE}" font-weight="700" '
         'font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">',
     ]
     for index, line in enumerate(lines):
         y = first_baseline + index * LINE_HEIGHT
         parts.append(
-            f'<text x="18" y="{y:.1f}" xml:space="preserve">{html.escape(line)}</text>'
+            f'<text x="18" y="{y:.1f}" xml:space="preserve" textLength="{SVG_WIDTH-36}" opacity="0">{html.escape(line)}'
+            f'<animate attributeName="opacity" from="0" to="1" begin="{.1 + index*.035:.3f}s" dur=".25s" fill="freeze"/></text>'
         )
-    parts.extend(("</g>", "</svg>"))
+    parts.append("</g>")
+    parts.append(
+        '<g clip-path="url(#win)"><rect x="0" y="-60" width="370" height="60" fill="url(#beam)">'
+        '<animate attributeName="y" values="-60;376;376" keyTimes="0;.45;1" dur="6s" begin="1.8s" repeatCount="indefinite"/></rect></g>'
+    )
+    parts.append("</svg>")
     return "\n".join(parts) + "\n"
 
 
