@@ -11,7 +11,7 @@
 <tr>
 <td valign="top">
 <img
-  src="./numunun-ascii.svg?v=0"
+  src="./numunun-ascii.svg?v=5f5748bb96ca"
   width="370"
   alt="numunun ASCII portrait"
 />
