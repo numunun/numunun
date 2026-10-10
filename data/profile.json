@@ -1,12 +1,12 @@
 {
  "user": "numunun",
  "today": "2026-10-10",
- "total": 118,
- "active_days": 38,
+ "total": 119,
+ "active_days": 39,
  "current_streak": {
-  "length": 10,
+  "length": 11,
   "start": "2026-09-30",
-  "end": "2026-10-09"
+  "end": "2026-10-10"
  },
  "longest_streak": {
   "length": 15,
@@ -1912,8 +1912,8 @@
   },
   {
    "date": "2026-10-10",
-   "count": 0,
-   "level": 0
+   "count": 1,
+   "level": 1
   }
  ]
 }
