@@ -21,7 +21,7 @@ ROWS = [
     ("kv", "Deploy", "Vercel, GitHub Actions"),
     ("gap",),
     ("sec", "Languages"),
-    ("kv", "Code", "Kotlin, TypeScript, JavaScript, Swift, C"),
+    ("kv", "Code", "Kotlin, TypeScript, JavaScript, Java, Swift, C"),
     ("kv", "Tools", "Git, VS Code, IntelliJ IDEA"),
 ]
 PALETTE = ["#484f58", "#ff7b72", "#3fb950", "#d29922", "#58a6ff", "#bc8cff", "#39c5cf", "#e6edf3"]
