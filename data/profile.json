@@ -1,7 +1,7 @@
 {
  "user": "numunun",
- "today": "2026-10-10",
- "total": 121,
+ "today": "2026-10-11",
+ "total": 136,
  "active_days": 39,
  "current_streak": {
   "length": 11,
@@ -20,35 +20,43 @@
  "languages": [
   {
    "name": "TypeScript",
-   "percent": 44.3
+   "percent": 31.7
+  },
+  {
+   "name": "Java",
+   "percent": 28.4
   },
   {
    "name": "HTML",
-   "percent": 21.4
+   "percent": 15.3
   },
   {
    "name": "Kotlin",
-   "percent": 14.9
+   "percent": 10.6
   },
   {
    "name": "PLpgSQL",
-   "percent": 9.1
+   "percent": 6.5
   },
   {
    "name": "C",
-   "percent": 6.3
+   "percent": 4.5
   },
   {
    "name": "Swift",
-   "percent": 3.0
+   "percent": 2.1
   },
   {
    "name": "Shell",
-   "percent": 0.5
+   "percent": 0.4
   },
   {
    "name": "CSS",
-   "percent": 0.4
+   "percent": 0.3
+  },
+  {
+   "name": "GLSL",
+   "percent": 0.1
   },
   {
    "name": "JavaScript",
@@ -173,7 +181,7 @@
   {
    "date": "2025-10-27",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2025-10-28",
@@ -188,7 +196,7 @@
   {
    "date": "2025-10-30",
    "count": 6,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2025-10-31",
@@ -463,7 +471,7 @@
   {
    "date": "2025-12-24",
    "count": 4,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2025-12-25",
@@ -1548,7 +1556,7 @@
   {
    "date": "2026-07-29",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-07-30",
@@ -1678,27 +1686,27 @@
   {
    "date": "2026-08-24",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-08-25",
    "count": 4,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-08-26",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-08-27",
    "count": 6,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-08-28",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-08-29",
@@ -1713,17 +1721,17 @@
   {
    "date": "2026-08-31",
    "count": 4,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-09-01",
    "count": 5,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-09-02",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-09-03",
@@ -1738,7 +1746,7 @@
   {
    "date": "2026-09-05",
    "count": 4,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-09-06",
@@ -1748,7 +1756,7 @@
   {
    "date": "2026-09-07",
    "count": 4,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-09-08",
@@ -1758,7 +1766,7 @@
   {
    "date": "2026-09-09",
    "count": 5,
-   "level": 4
+   "level": 2
   },
   {
    "date": "2026-09-10",
@@ -1768,7 +1776,7 @@
   {
    "date": "2026-09-11",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-09-12",
@@ -1828,7 +1836,7 @@
   {
    "date": "2026-09-23",
    "count": 2,
-   "level": 2
+   "level": 1
   },
   {
    "date": "2026-09-24",
@@ -1863,57 +1871,57 @@
   {
    "date": "2026-09-30",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-01",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-02",
-   "count": 6,
-   "level": 4
+   "count": 7,
+   "level": 3
   },
   {
    "date": "2026-10-03",
-   "count": 4,
-   "level": 4
+   "count": 8,
+   "level": 3
   },
   {
    "date": "2026-10-04",
-   "count": 4,
-   "level": 4
+   "count": 5,
+   "level": 2
   },
   {
    "date": "2026-10-05",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-06",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-07",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-08",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-09",
    "count": 3,
-   "level": 3
+   "level": 1
   },
   {
    "date": "2026-10-10",
-   "count": 3,
-   "level": 3
+   "count": 12,
+   "level": 4
   }
  ]
 }
