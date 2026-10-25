@@ -1,17 +1,17 @@
 {
  "user": "numunun",
  "today": "2026-10-25",
- "total": 220,
- "active_days": 53,
+ "total": 227,
+ "active_days": 54,
  "current_streak": {
-  "length": 25,
+  "length": 26,
   "start": "2026-09-30",
-  "end": "2026-10-24"
+  "end": "2026-10-25"
  },
  "longest_streak": {
-  "length": 25,
+  "length": 26,
   "start": "2026-09-30",
-  "end": "2026-10-24"
+  "end": "2026-10-25"
  },
  "best_day": {
   "date": "2026-09-03",
@@ -68,41 +68,6 @@
   }
  ],
  "days": [
-  {
-   "date": "2025-10-19",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-20",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-21",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-22",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-23",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-24",
-   "count": 0,
-   "level": 0
-  },
-  {
-   "date": "2025-10-25",
-   "count": 0,
-   "level": 0
-  },
   {
    "date": "2025-10-26",
    "count": 0,
@@ -1920,8 +1885,13 @@
   },
   {
    "date": "2026-10-24",
-   "count": 4,
+   "count": 5,
    "level": 2
+  },
+  {
+   "date": "2026-10-25",
+   "count": 6,
+   "level": 3
   }
  ]
 }
