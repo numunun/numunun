@@ -1,7 +1,7 @@
 {
  "user": "numunun",
  "today": "2026-10-28",
- "total": 245,
+ "total": 247,
  "active_days": 57,
  "current_streak": {
   "length": 29,
@@ -19,24 +19,24 @@
  },
  "languages": [
   {
-   "name": "Kotlin",
+   "name": "TypeScript",
    "percent": 26.7
   },
   {
-   "name": "TypeScript",
+   "name": "Kotlin",
    "percent": 26.5
   },
   {
    "name": "Java",
-   "percent": 24.3
+   "percent": 24.2
   },
   {
    "name": "HTML",
-   "percent": 10.2
+   "percent": 10.1
   },
   {
    "name": "PLpgSQL",
-   "percent": 7.1
+   "percent": 7.3
   },
   {
    "name": "C",
@@ -60,7 +60,7 @@
   },
   {
    "name": "GLSL",
-   "percent": 0.1
+   "percent": 0.0
   },
   {
    "name": "Assembly",
@@ -1905,8 +1905,8 @@
   },
   {
    "date": "2026-10-28",
-   "count": 1,
-   "level": 1
+   "count": 3,
+   "level": 2
   }
  ]
 }
