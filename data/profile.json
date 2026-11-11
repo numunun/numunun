@@ -1,17 +1,17 @@
 {
  "user": "numunun",
- "today": "2026-11-11",
- "total": 283,
- "active_days": 67,
+ "today": "2026-11-12",
+ "total": 285,
+ "active_days": 68,
  "current_streak": {
-  "length": 42,
+  "length": 43,
   "start": "2026-09-30",
-  "end": "2026-11-10"
+  "end": "2026-11-11"
  },
  "longest_streak": {
-  "length": 42,
+  "length": 43,
   "start": "2026-09-30",
-  "end": "2026-11-10"
+  "end": "2026-11-11"
  },
  "best_day": {
   "date": "2026-09-03",
@@ -20,23 +20,23 @@
  "languages": [
   {
    "name": "TypeScript",
-   "percent": 27.2
+   "percent": 28.7
   },
   {
    "name": "Kotlin",
-   "percent": 26.2
+   "percent": 25.4
   },
   {
    "name": "Java",
-   "percent": 23.9
+   "percent": 23.2
   },
   {
    "name": "HTML",
-   "percent": 10.0
+   "percent": 9.7
   },
   {
    "name": "PLpgSQL",
-   "percent": 7.7
+   "percent": 8.1
   },
   {
    "name": "C",
@@ -52,7 +52,7 @@
   },
   {
    "name": "Shell",
-   "percent": 0.3
+   "percent": 0.2
   },
   {
    "name": "JavaScript",
@@ -1905,8 +1905,8 @@
   },
   {
    "date": "2026-11-11",
-   "count": 0,
-   "level": 0
+   "count": 2,
+   "level": 1
   }
  ]
 }
