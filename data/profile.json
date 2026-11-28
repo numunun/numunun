@@ -1,7 +1,7 @@
 {
  "user": "numunun",
  "today": "2026-11-28",
- "total": 246,
+ "total": 247,
  "active_days": 64,
  "current_streak": {
   "length": 58,
@@ -1899,8 +1899,13 @@
   },
   {
    "date": "2026-11-27",
-   "count": 2,
+   "count": 3,
    "level": 1
+  },
+  {
+   "date": "2026-11-28",
+   "count": 0,
+   "level": 0
   }
  ]
 }
